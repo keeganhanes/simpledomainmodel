@@ -40,13 +40,13 @@ public struct Money {
         case ("GBP" , "USD"):
             result = self.amount * 2
         case ("USD", "EUR"):
-            result = self.amount * Int(1.5)
+            result = Int(Double(self.amount) * 1.5)
         case ("EUR", "USD"):
-            result = self.amount / Int(1.5)
+            result = Int(Double(self.amount) / 1.5)
         case ("USD", "CAN"):
-            result = self.amount * Int(1.25)
+            result = Int(Double(self.amount) * 1.25)
         case ("CAN", "USD"):
-            result = self.amount / Int(1.25)
+            result = Int(Double(self.amount) / 1.25)
         default:
             result = self.amount
         }

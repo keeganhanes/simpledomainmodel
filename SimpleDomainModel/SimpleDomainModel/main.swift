@@ -24,43 +24,93 @@ open class TestMe {
 // Money
 //
 public struct Money {
-  public var amount : Int
-  public var currency : String
+    public var amount : Int
+    public var currency : String
+    
+    init(amount: Int, currency: String) {
+        self.amount = amount
+        self.currency = currency
+    }
   
-  public func convert(_ to: String) -> Money {
-  }
+    public func convert(_ to: String) -> Money {
+        var result = 0
+        switch (currency, to) {
+        case ("USD", "GBP"):
+            result = self.amount / 2
+        case ("GBP" , "USD"):
+            result = self.amount * 2
+        case ("USD", "EUR"):
+            result = self.amount * Int(1.5)
+        case ("EUR", "USD"):
+            result = self.amount / Int(1.5)
+        case ("USD", "CAN"):
+            result = self.amount * Int(1.25)
+        case ("CAN", "USD"):
+            result = self.amount / Int(1.25)
+        default:
+            result = self.amount
+        }
+        return Money(amount: result, currency: to)
+    }
   
-  public func add(_ to: Money) -> Money {
-  }
-  public func subtract(_ from: Money) -> Money {
-  }
+    public func add(_ to: Money) -> Money {
+        let convertedMoney = self.convert(to.currency)
+        let result = convertedMoney.amount + to.amount
+        return Money(amount: result, currency: to.currency)
+    }
+    
+    public func subtract(_ from: Money) -> Money {
+        let convertedMoney = self.convert(from.currency)
+        let result = convertedMoney.amount - from.amount
+        return Money(amount: result, currency: from.currency)
+    }
 }
+
+// TESTS
+//let tenUSD = Money(amount: 10, currency: "USD")
+//print(tenUSD.convert("GBP"))
+//let fifteenEUR = Money(amount: 15, currency: "EUR")
+//print(fifteenEUR.convert("USD"))
 
 ////////////////////////////////////
 // Job
 //
 open class Job {
-  fileprivate var title : String
-  fileprivate var type : JobType
+    fileprivate var title : String
+    fileprivate var type : JobType
 
-  public enum JobType {
-    case Hourly(Double)
-    case Salary(Int)
-  }
+    public enum JobType {
+        case Hourly(Double)
+        case Salary(Int)
+    }
   
-  public init(title : String, type : JobType) {
-  }
+    public init(title : String, type : JobType) {
+        self.title = title
+        self.type = type
+    }
   
-  open func calculateIncome(_ hours: Int) -> Int {
-  }
+    open func calculateIncome(_ hours: Int) -> Int {
+        switch self.type {
+        case .Hourly(let income):
+            return Int(income) * hours
+        case .Salary(let income):
+            return income
+        }
+    }
   
-  open func raise(_ amt : Double) {
-  }
+    open func raise(_ amt : Double) {
+        switch self.type {
+        case .Hourly(let income):
+            self.type = JobType.Hourly(income + amt)
+        case .Salary(let income):
+            self.type = JobType.Salary(income + Int(amt))
+        }
+    }
 }
 
 ////////////////////////////////////
 // Person
-//
+/*
 open class Person {
   open var firstName : String = ""
   open var lastName : String = ""
@@ -106,7 +156,7 @@ open class Family {
   }
 }
 
-
+*/
 
 
 

@@ -66,12 +66,6 @@ public struct Money {
     }
 }
 
-// TESTS
-//let tenUSD = Money(amount: 10, currency: "USD")
-//print(tenUSD.convert("GBP"))
-//let fifteenEUR = Money(amount: 15, currency: "EUR")
-//print(fifteenEUR.convert("USD"))
-
 ////////////////////////////////////
 // Job
 //
@@ -110,7 +104,7 @@ open class Job {
 
 ////////////////////////////////////
 // Person
-/*
+//
 open class Person {
   open var firstName : String = ""
   open var lastName : String = ""
@@ -118,15 +112,21 @@ open class Person {
 
   fileprivate var _job : Job? = nil
   open var job : Job? {
-    get { }
+    get {return _job}
     set(value) {
+        if self.age >= 16 {
+            _job = value
+        }
     }
   }
   
   fileprivate var _spouse : Person? = nil
   open var spouse : Person? {
-    get { }
+    get {return _spouse}
     set(value) {
+        if self.age >= 18 {
+            _spouse = value
+        }
     }
   }
   
@@ -137,12 +137,13 @@ open class Person {
   }
   
   open func toString() -> String {
+    return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(_job) spouse:\(_spouse)]"
   }
 }
 
 ////////////////////////////////////
 // Family
-//
+/*
 open class Family {
   fileprivate var members : [Person] = []
   

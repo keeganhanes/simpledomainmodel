@@ -35,7 +35,7 @@ class PersonTests: XCTestCase {
   }
   
 }
-/*
+
 class FamilyTests : XCTestCase {
   
   func testFamily() {
@@ -70,4 +70,3 @@ class FamilyTests : XCTestCase {
   }
   
 }
-*/
